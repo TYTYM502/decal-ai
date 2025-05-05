@@ -20,6 +20,10 @@ html = f"""
 <ul>
 {''.join(f'<li>{row.keyword} (score: {row.score:.2f})</li>' for row in forecast.itertuples())}
 </ul>
+<form method=\"post\" action=\"https://github.com/OWNER/REPO/actions/workflows/main.yml/dispatch\">
+  <input type=\"hidden\" name=\"ref\" value=\"main\">
+  <button type=\"submit\">Run Forecast Now</button>
+</form>
 </body>
 </html>
 """
