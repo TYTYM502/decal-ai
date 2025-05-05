@@ -16,7 +16,7 @@ jobs:
       - run: python main.py
       - uses: actions/upload-pages-artifact@v2
         with:
-          path: .
+          path: docs
 
   deploy:
     needs: run-ai
