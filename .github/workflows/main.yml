@@ -4,28 +4,39 @@ on:
   workflow_dispatch:
 
 jobs:
-  run:
+  run-decal-ai:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: 3.10
 
-      - run: pip install -r requirements.txt
-      - run: mkdir -p data/raw
-      - run: python main.py
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
-      - uses: actions/upload-pages-artifact@v2
+      - name: Ensure data directory exists
+        run: mkdir -p data/raw
+
+      - name: Run main script
+        run: python main.py
+
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v2
         with:
           path: docs
 
-  deploy:
-    needs: run
+  deploy-pages:
+    needs: run-decal-ai
     runs-on: ubuntu-latest
     permissions:
       pages: write
       id-token: write
+
     steps:
-      - uses: actions/deploy-pages@v4
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
