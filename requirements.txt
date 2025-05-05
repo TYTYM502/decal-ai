@@ -3,7 +3,3 @@ requests
 bs4
 undetected-chromedriver
 selenium
-pytrends
-praw
-google-api-python-client
-openai
